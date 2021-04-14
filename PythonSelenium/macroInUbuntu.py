@@ -1,16 +1,25 @@
 import time
 from selenium import webdriver                          # sudo apt install python3-selenium
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 # 에러 코드 제거usb_device_handle_win.cc:1020 Failed to read descriptor from node connection:  시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
-options = webdriver.ChromeOptions() # 같은 디렉토리에 chromedriver.exe 파일이 있어야함.
-options.add_experimental_option("excludeSwitches", ["enable-logging"])
-
-driver = webdriver.Chrome()
+# options = webdriver.ChromeOptions() # 같은 디렉토리에 chromedriver.exe 파일이 있어야함.
+# options.add_experimental_option("excludeSwitches", ["enable-logging"])
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-gpu')
+driver = webdriver.Chrome(chrome_options=chrome_options, executable_path="chromedriver")
+driver.implicitly_wait(3)
 
 # 웹페이지를 크롬 웹 브라우저로 열기
 url = "https://hcs.eduro.go.kr"
 driver.get(url)    
+
+
+### 잘 실행되었는지 로그로 확인
+# cat /var/log/cron
 
 # 크롬 개발자 도구로 [자가진단 참여하기 GO] 버튼의 id값 알아내기 => btnConfirm2
 # 버튼의 xpath값으로 [자가진단 참여하기 GO] 버튼 클릭하기 

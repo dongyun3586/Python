@@ -1,12 +1,18 @@
 import time
 from selenium import webdriver                          # sudo apt install python3-selenium
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 
 # 에러 코드 제거usb_device_handle_win.cc:1020 Failed to read descriptor from node connection:  시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
-options = webdriver.ChromeOptions() # 같은 디렉토리에 chromedriver.exe 파일이 있어야함.
+options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
-driver = webdriver.Chrome()
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-gpu')
+driver = webdriver.Chrome(chrome_options=chrome_options, executable_path="chromedriver")
+driver.implicitly_wait(3)
 
 # 웹페이지를 크롬 웹 브라우저로 열기
 url = "https://hcs.eduro.go.kr"
