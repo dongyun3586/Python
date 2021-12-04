@@ -9,7 +9,5 @@ h = []
 for v in x_data:
     h.append(W*v+b)
 
-
-
 # hypothesis = W * x_data + b
 print(h)
