@@ -1,7 +1,10 @@
-# (연습문제3) 변수값 교환하기
-a = input("첫 번째 숫자 입력: ")
-b = input("두 번째 숫자 입력: ")
-print(f'a={a}, b={b}')
+# 간단한 문자열 처리 함수들
 
-a, b = b, a
-print(f'a={a}, b={b}')
+# len(문자열): 문자열 길이 구하기
+import keyword
+# print(keyword.kwlist)
+kwlist = keyword.kwlist
+kwlist.sort()
+
+for i in kwlist:
+    print(i)
