@@ -79,7 +79,7 @@ for i in '0509':
     for obj in v_object:
         v_num_value = obj.get_attribute('aria-label')
         if v_num_value == i:
-            print('클릭: ', v_num_value)
+            # print('클릭: ', v_num_value)
             obj.click()
             driver.implicitly_wait(1)
             time.sleep(1)

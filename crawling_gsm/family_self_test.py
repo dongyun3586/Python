@@ -11,7 +11,7 @@ options.add_argument('headless')
 driver = webdriver.Chrome(options=options)
 #endregion
 
-# headless 옵션을 적용하지 않는 경우
+# # headless 옵션을 적용하지 않는 경우
 # driver = webdriver.Chrome() 
 
 driver.get("https://hcs.eduro.go.kr/#/loginHome")
@@ -31,11 +31,11 @@ select_object.select_by_value('05')
 # 학교급에서 '고등학교' 선택하기
 driver.implicitly_wait(0.5)
 select_object = Select(driver.find_element(By.ID,'crseScCode'))
-select_object.select_by_value('4')
+select_object.select_by_value('2')
 
 # 학교명 입력하기
 driver.implicitly_wait(0.5)
-driver.find_element(By.ID,'orgname').send_keys("광주과학고" + Keys.ENTER)
+driver.find_element(By.ID,'orgname').send_keys("만호초등학교" + Keys.ENTER)
 
 # 학교명 클릭
 driver.implicitly_wait(0.5)
@@ -44,23 +44,23 @@ driver.find_element(By.XPATH, '//*[@id="softBoardListLayer"]/div[2]/div[1]/ul/li
 # [학교선택/Select School] 버튼 클릭
 driver.implicitly_wait(0.5)
 driver.find_element(By.XPATH, '//*[@id="softBoardListLayer"]/div[2]/div[2]/input').click()
-
 #endregion
 
 #region 3. 성명 및 생년월일 입력
 # 성명 입력
 driver.implicitly_wait(0.5)
-driver.find_element(By.ID, 'user_name_input').send_keys("이동윤" + Keys.ENTER)
+time.sleep(1)
+driver.find_element(By.ID, 'user_name_input').send_keys("이서준" + Keys.ENTER)
 
 # 생년월일 입력
 driver.implicitly_wait(0.5)
-driver.find_element(By.ID, 'birthday_input').send_keys("790204" + Keys.ENTER)
+driver.find_element(By.ID, 'birthday_input').send_keys("120911" + Keys.ENTER)
 #endregion
 
 #region 4. 가상키보드 비번 입력
 # 가상키보드 아이콘 클릭
 driver.implicitly_wait(1)
-time.sleep(1)
+time.sleep(2)
 imgBtn = driver.find_element(By.XPATH, '//*[@id="WriteInfoForm"]/table/tbody/tr/td/div/button/img')
 ActionChains(driver).move_to_element(imgBtn).click().perform()  # imgBtn 위로 마우스 이동
 
@@ -75,11 +75,11 @@ v_object = []
 for i in nums:
     v_object.append(driver.find_element(By.XPATH, '//*[@id="password_mainDiv"]/div'+i))
     
-for i in '0509':
+for i in '1566':
     for obj in v_object:
         v_num_value = obj.get_attribute('aria-label')
         if v_num_value == i:
-            print('클릭: ', v_num_value)
+            # print('클릭: ', v_num_value)
             obj.click()
             driver.implicitly_wait(1)
             time.sleep(1)
@@ -91,17 +91,21 @@ driver.find_element(By.ID, 'btnConfirm').click()
 
 #region 5. 자가진담 참여 및 질문지 체크
 # 자가진단 참여버튼 클릭
-time.sleep(2)
-driver.find_element(By.XPATH, '//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
-    
-# 자가진단 질문지 체크
-time.sleep(0.5)
-driver.find_element(By.ID, 'survey_q1a1').click()
-driver.find_element(By.ID, 'survey_q2a1').click()
-driver.find_element(By.ID, 'survey_q3a1').click()
-driver.find_element(By.ID, 'survey_q4a1').click()
-driver.find_element(By.ID, 'btnConfirm').click()
-#endregion
+for i in range(1, 4):
+    time.sleep(2)
+    driver.find_element(By.XPATH, '//*[@id="container"]/div/section[2]/div[2]/ul/li[{}]/a/em'.format(i)).click()
+        
+    # 자가진단 질문지 체크
+    time.sleep(0.5)
+    driver.find_element(By.ID, 'survey_q1a1').click()
+    driver.find_element(By.ID, 'survey_q2a1').click()
+    driver.find_element(By.ID, 'survey_q3a1').click()
+    driver.find_element(By.ID, 'survey_q4a1').click()
+    driver.find_element(By.ID, 'btnConfirm').click()
+    #endregion
+
+    # 처음으로 돌아가기 버튼 클릭
+    driver.find_element(By.XPATH, '/html/body/app-root/div/div[1]/div[1]/ul/li/a').click()
 
 #region 6. 브라우저 종료   
 time.sleep(2)
