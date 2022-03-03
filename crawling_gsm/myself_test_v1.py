@@ -4,6 +4,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.action_chains import ActionChains
 import time
+import datetime
+
+nowTime = datetime.datetime.now()
+print('자가진단 셀프 체크 프로그램 시작 시간: ', nowTime)
 
 #region webdirver옵션에서 headless 옵션 적용
 # options = webdriver.ChromeOptions()
@@ -97,13 +101,14 @@ driver.find_element(By.XPATH, '//*[@id="container"]/div/section[2]/div[2]/ul/li/
 # 자가진단 질문지 체크
 time.sleep(0.5)
 driver.find_element(By.ID, 'survey_q1a1').click()
-driver.find_element(By.ID, 'survey_q2a3').click()
+driver.find_element(By.ID, 'survey_q2a1').click()
 driver.find_element(By.ID, 'survey_q3a1').click()
+driver.find_element(By.ID, 'survey_q4a1').click()
 driver.find_element(By.ID, 'btnConfirm').click()
 #endregion
 
 #region 6. 브라우저 종료  
-print('프로그램 정상 종료') 
+print('*** 자가진단 셀프 체크 프로그램 종료 ***') 
 time.sleep(2)
 driver.quit()
 #endregion

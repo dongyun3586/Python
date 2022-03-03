@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import re
+import datetime
+
+nowTime = datetime.datetime.now()
+print('Turn on TV 프로그램 시작 시간: ', nowTime)
 
 url_list = ["http://10.122.2.80:1011/?sw=", "http://10.122.2.80:1012/?sw=", "http://10.122.2.80:1014/?sw=", "http://10.122.2.80:1015/?sw="]
 
@@ -46,3 +50,6 @@ while True:
     turn_on_tvs()
     if check_tvIsOn() == 4:
         break
+    
+nowTime = datetime.datetime.now()
+print('프로그램 종료 시간: ', nowTime)
