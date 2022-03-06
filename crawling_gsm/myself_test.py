@@ -1,26 +1,28 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 import datetime
+from random import randint 
 
 nowTime = datetime.datetime.now()
 print('자가진단 셀프 체크 프로그램 시작 시간: ', nowTime)
 
-#region webdirver옵션에서 headless 옵션 적용
-# options = webdriver.ChromeOptions()
-# options.add_argument('headless')
-# driver = webdriver.Chrome(options=options)
-#endregion
+# # 랜덤 대기시간
+# waitTime = randint(10, 150)
+# print(f'random waitTime: {waitTime}')
+# time.sleep(waitTime)
 
 options = webdriver.ChromeOptions()
+options.add_argument('headless')
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = webdriver.Chrome(options=options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-# # headless 옵션을 적용하지 않는 경우
-# driver = webdriver.Chrome() 
+# driver = webdriver.Chrome()   # 옵션을 적용하지 않는 경우
 
 driver.get("https://hcs.eduro.go.kr/#/loginHome")
 
@@ -84,16 +86,15 @@ for i in nums:
     if obj.get_attribute('aria-label'):
         v_object.append(obj)
         print(obj.get_attribute('aria-label'), end=' ')
-        print()
 
-print('비밀번호 요소 리스트에 저장 성공')
+print('\n비밀번호 요소 리스트에 저장 성공')
 print('v_object length: ', len(v_object))
-
+print('클릭: ')
 for i in '0509':
     for obj in v_object:
         v_num_value = obj.get_attribute('aria-label')
         if v_num_value == i:
-            print('클릭: ', v_num_value)
+            print(v_num_value, end=' ')
             obj.click()
             driver.implicitly_wait(1)
             break
