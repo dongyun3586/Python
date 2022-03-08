@@ -18,7 +18,7 @@ print('자가진단 셀프 체크 프로그램 시작 시간: ', nowTime)
 # time.sleep(waitTime)
 
 options = webdriver.ChromeOptions()
-# options.add_argument('headless')
+options.add_argument('headless')
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
@@ -106,7 +106,7 @@ driver.find_element(By.ID, 'btnConfirm').click()
 
 #region 5. 자가진담 참여 및 질문지 체크
 # 자가진단 참여버튼 클릭
-time.sleep(5)
+time.sleep(20)
 driver.implicitly_wait(1)
 driver.find_element(By.XPATH, '//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
     

@@ -18,7 +18,7 @@ print('자가진단 셀프 체크 프로그램 시작 시간: ', nowTime)
 # time.sleep(waitTime)
 
 options = webdriver.ChromeOptions()
-# options.add_argument('headless')
+options.add_argument('headless')
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
@@ -113,7 +113,7 @@ driver.find_element(By.XPATH, '//*[@id="container"]/div/section[2]/div[2]/ul/li/
 # 자가진단 질문지 체크
 time.sleep(0.5)
 driver.find_element(By.ID, 'survey_q1a1').click()
-driver.find_element(By.ID, 'survey_q2a3').click()
+driver.find_element(By.ID, 'survey_q2a1').click()  # survey_q2a1
 driver.find_element(By.ID, 'survey_q3a1').click()
 driver.find_element(By.ID, 'btnConfirm').click()
 #endregion
