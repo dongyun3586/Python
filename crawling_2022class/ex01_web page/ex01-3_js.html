@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS</title>
+    <style>
+        p, ul{
+            font-size: 3em;
+        }
+        #btnList{
+            font-size: 3em;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <p>Click me</p>
+    <input type="button" id="btnList" value="목록 숨기기">
+    <ul class="my_list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+    </ul>
+    <script>
+        //HTML 요소 중 p태그를 선택
+        const para = document.querySelector('p');
+
+        //para에 저장된 객체가 클릭되었을 때 updateName 함수를 실행
+        para.addEventListener('click', updateName);
+        
+        function updateName() {
+            //'Enter a new name'과 입력란 출력하여 입력받은 값을 name에 저장
+            let name = prompt('너의 이름은?');
+            //papa(p태그)에 새로운 문자열 저장
+            para.textContent = 'Your name is ' + name;
+        }
+
+        // 목록 숨기기
+        const btnList = document.querySelector('#btnList');
+        const myList = document.querySelector('.my_list');
+        btnList.addEventListener('click', ()=>{
+            if(btnList.value==="목록 숨기기"){
+                myList.style.display="none";
+                btnList.value = "목록 보이기";
+            }else{
+                myList.style.display="block";
+                btnList.value = "목록 숨기기";
+            }
+        })
+    </script>
+</body>
+</html>
