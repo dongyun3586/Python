@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $(document).on("change", "#image_uploads", function() {
+                upload();
+            })
+        });
+        function upload() {
+            const input_image = $('#image_uploads')[0].files;
+            console.log(input_image);
+            if(input_image.length == 0) {
+                alert('파일이 선택되지 않았습니다.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('image', input_image[0]);
+            let now = new Date().getTime() + '.' + input_image[0]['name'].split('.')[1];
+            $.ajax({
+                type: 'POST',
+                url: '/api?type=uploads&now='+now,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    if(response['type'] == 'error') {
+                        console.log('error!\n'+response['message']);
+                    } else if(response['type'] == 'success') {
+                        console.log('success!\n'+response['message']);
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api?type=deeplearning&filename='+now,
+                            processData: false,
+                            contentType: false,
+                            success: function(resp) {
+                                console.log(resp);
+                            },
+                            error: function(err) {
+                                console.log(err);
+                                alert('error');
+                            }
+                        })
+                    }
+                },
+                err: function(err) {
+                    console.log(err);
+                    alert('error!\nserver connection error')
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <form enctype="multipart/form-data">
+        <div class="upload">
+            <div class="buttons">
+                <input type="file" id="image_uploads" name="image_file[]" accept="image/*">
+                <label for="fileToUpload_before">이미지 파일 업로드</label>
+                <label for="fileToUpload_before"></label>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
