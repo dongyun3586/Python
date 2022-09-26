@@ -7,10 +7,11 @@ import datetime
 nowTime = datetime.datetime.now()
 print('Turn on TV 프로그램 시작 시간: ', nowTime)
 
-url_list = ["http://10.122.2.80:1011/?sw=", "http://10.122.2.80:1012/?sw=", "http://10.122.2.80:1014/?sw=", "http://10.122.2.80:1015/?sw="]
+# url_list = ["http://10.122.2.80:1011/?sw=", "http://10.122.2.80:1012/?sw=", "http://10.122.2.80:1014/?sw=", "http://10.122.2.80:1015/?sw="]
+url_list = ["http://10.122.2.80:1011/?sw=", "http://10.122.2.80:1012/?sw=", "http://10.122.2.80:1015/?sw="]
 
 def turn_on_tvs():
-    for i in range(4):
+    for i in range(len(url_list)):
         # tv 상태 페이지 소스 페이지 가져오기 & 파싱
         res = requests.get(url_list[i]+'1')
         res.raise_for_status()
@@ -27,7 +28,7 @@ def turn_on_tvs():
             
 def check_tvIsOn():
     count = 0
-    for i in range(4):
+    for i in range(len(url_list)):
         time.sleep(3)
         res = requests.get(url_list[i]+'1')
         res.raise_for_status()
@@ -48,7 +49,7 @@ def check_tvIsOn():
 
 while True:
     turn_on_tvs()
-    if check_tvIsOn() == 4:
+    if check_tvIsOn() == len(url_list):
         break
     
 nowTime = datetime.datetime.now()
