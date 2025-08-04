@@ -156,3 +156,7 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python
 CookData(2022.03.07)/Code12-04.py
+CookData(2022.03.07)/Code02-03.py
+*.avi
+*.mp4
+/CookData(2022.03.07)
